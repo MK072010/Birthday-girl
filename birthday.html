@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday Princess 💖</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:#05010d;
+overflow-x:hidden;
+color:white;
+}
+
+/* Background Glow */
+
+.bg-glow{
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top left,#ff2fb9 0%,transparent 25%),
+radial-gradient(circle at bottom right,#6c4dff 0%,transparent 25%);
+opacity:.25;
+z-index:-3;
+}
+
+/* Floating Hearts */
+
+.hearts{
+position:fixed;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:-2;
+pointer-events:none;
+}
+
+.heart{
+position:absolute;
+bottom:-50px;
+font-size:20px;
+animation:float linear forwards;
+opacity:.7;
+}
+
+@keyframes float{
+0%{
+transform:translateY(0) scale(1);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-120vh) scale(1.8);
+opacity:0;
+}
+}
+
+/* Loader */
+
+.loader{
+position:fixed;
+inset:0;
+background:#05010d;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+transition:1s;
+}
+
+.loader h1{
+font-family:'Great Vibes',cursive;
+font-size:5rem;
+color:#ff69e2;
+margin-bottom:20px;
+}
+
+.loader p{
+color:#ddd;
+}
+
+.loading{
+width:260px;
+height:6px;
+background:#ffffff20;
+border-radius:50px;
+overflow:hidden;
+margin-top:25px;
+}
+
+.loading span{
+display:block;
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#ff2fb9,#6c4dff);
+animation:load 3s forwards;
+}
+
+@keyframes load{
+100%{
+width:100%;
+}
+}
+
+/* Sections */
+
+section{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:100px 20px;
+position:relative;
+}
+
+/* Glass */
+
+.glass{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(12px);
+border-radius:35px;
+padding:50px;
+width:100%;
+max-width:1100px;
+box-shadow:0 0 50px rgba(255,0,180,.15);
+}
+
+/* Hero */
+
+.hero{
+text-align:center;
+}
+
+.hero h2{
+font-family:'Great Vibes',cursive;
+font-size:6rem;
+color:#ff73dd;
+}
+
+.hero h1{
+font-size:5rem;
+line-height:1.2;
+margin:20px 0;
+}
+
+.hero p{
+font-size:1.2rem;
+color:#ddd;
+max-width:700px;
+margin:auto;
+line-height:1.8;
+}
+
+.btn{
+display:inline-block;
+margin-top:40px;
+padding:16px 34px;
+border-radius:50px;
+text-decoration:none;
+background:linear-gradient(90deg,#ff2fb9,#7652ff);
+color:white;
+font-weight:600;
+transition:.4s;
+box-shadow:0 0 25px rgba(255,0,200,.4);
+}
+
+.btn:hover{
+transform:scale(1.08);
+}
+
+/* Section Titles */
+
+.title{
+font-family:'Great Vibes',cursive;
+font-size:4rem;
+color:#ff79e0;
+text-align:center;
+margin-bottom:50px;
+}
+
+/* Timeline */
+
+.timeline{
+display:flex;
+flex-direction:column;
+gap:35px;
+}
+
+.timeline-item{
+padding:30px;
+border-radius:25px;
+background:#ffffff10;
+border:1px solid rgba(255,255,255,.08);
+transition:.4s;
+}
+
+.timeline-item:hover{
+transform:translateY(-8px);
+box-shadow:0 0 30px rgba(255,0,180,.2);
+}
+
+.timeline-item h3{
+font-size:2rem;
+margin-bottom:10px;
+color:#ff9deb;
+}
+
+/* Gallery */
+
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
+
+.card{
+overflow:hidden;
+border-radius:25px;
+position:relative;
+cursor:pointer;
+transition:.4s;
+background:#ffffff10;
+}
+
+.card img{
+width:100%;
+height:350px;
+object-fit:cover;
+transition:.5s;
+}
+
+.card:hover img{
+transform:scale(1.08);
+}
+
+.card h3{
+padding:20px;
+text-align:center;
+}
+
+/* Chat Gallery */
+
+.chat-gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+.chat-card{
+background:#ffffff10;
+border-radius:25px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.1);
+transition:.4s;
+cursor:pointer;
+}
+
+.chat-card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 0 30px rgba(255,0,180,.2);
+}
+
+.chat-card img{
+width:100%;
+display:block;
+border-radius:25px;
+}
+
+/* Popup */
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+backdrop-filter:blur(8px);
+}
+
+.popup img{
+max-width:90%;
+max-height:85vh;
+border-radius:25px;
+}
+
+/* Letter */
+
+.typing{
+font-size:1.2rem;
+line-height:2;
+color:#eee;
+min-height:280px;
+}
+
+/* Music Player */
+
+.music-player{
+position:fixed;
+bottom:25px;
+right:25px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+padding:18px 24px;
+border-radius:50px;
+display:flex;
+align-items:center;
+gap:15px;
+z-index:999;
+border:1px solid rgba(255,255,255,.1);
+}
+
+.music-btn{
+width:50px;
+height:50px;
+border-radius:50%;
+border:none;
+cursor:pointer;
+background:linear-gradient(90deg,#ff2fb9,#7652ff);
+color:white;
+font-size:1.1rem;
+}
+
+/* Gift */
+
+.gift-section{
+text-align:center;
+}
+
+.gift{
+font-size:7rem;
+cursor:pointer;
+display:inline-block;
+transition:.5s;
+animation:floatGift 2s infinite ease-in-out;
+}
+
+@keyframes floatGift{
+50%{
+transform:translateY(-10px);
+}
+}
+
+.gift:hover{
+transform:scale(1.1) rotate(8deg);
+}
+
+.surprise{
+margin-top:40px;
+display:none;
+animation:fadeIn 1s forwards;
+}
+
+.surprise h2{
+font-size:3rem;
+color:#ff8ce8;
+margin-bottom:20px;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* Final */
+
+.final{
+text-align:center;
+}
+
+.final h1{
+font-size:5rem;
+font-family:'Great Vibes',cursive;
+color:#ff7de4;
+}
+
+.final p{
+margin-top:20px;
+font-size:1.2rem;
+color:#ddd;
+}
+
+/* Fireworks */
+
+.firework{
+position:fixed;
+width:10px;
+height:10px;
+border-radius:50%;
+pointer-events:none;
+z-index:99999;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero h2{
+font-size:3.5rem;
+}
+
+.hero h1{
+font-size:2.8rem;
+}
+
+.title{
+font-size:3rem;
+}
+
+.glass{
+padding:35px 20px;
+}
+
+.typing{
+font-size:1rem;
+}
+
+.final h1{
+font-size:3rem;
+}
+
+}
+
+/* Bottom Bar */
+
+.bottom-bar{
+padding:50px 20px;
+text-align:center;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+border-top:1px solid rgba(255,255,255,.1);
+position:relative;
+overflow:hidden;
+}
+
+.bottom-bar::before{
+content:'';
+position:absolute;
+top:-80px;
+left:50%;
+transform:translateX(-50%);
+width:300px;
+height:300px;
+background:#ff2fb955;
+filter:blur(120px);
+z-index:-1;
+}
+
+.bottom-bar h2{
+font-size:2rem;
+color:#ff8ce8;
+margin-bottom:10px;
+font-weight:600;
+}
+
+.bottom-bar p{
+color:#ccc;
+font-size:1rem;
+letter-spacing:1px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<!-- Loader -->
+
+<div class="loader" id="loader">
+<h1>Birthday Surprise 💖</h1>
+<p>Preparing magical moments...</p>
+
+<div class="loading">
+<span></span>
+</div>
+</div>
+
+<!-- Hearts -->
+
+<div class="hearts" id="hearts"></div>
+
+<!-- Hero -->
+
+<section>
+
+<div class="glass hero">
+
+<h2>Happy Birthday</h2>
+
+<h1>Princess 👑💖</h1>
+
+<p>
+A beautiful day for the most beautiful soul ✨<br>
+May your smile always stay magical.
+</p>
+
+<a href="#timeline" class="btn">
+Start Journey 💕
+</a>
+
+</div>
+
+</section>
+
+<!-- Timeline -->
+
+<section id="timeline">
+
+<div class="glass">
+
+<h2 class="title">
+Our Beautiful Journey ✨
+</h2>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<h3>2024 💫</h3>
+<p>The beginning of beautiful memories.</p>
+</div>
+
+<div class="timeline-item">
+<h3>2025 🌸</h3>
+<p>The year full of smiles and unforgettable moments.</p>
+</div>
+
+<div class="timeline-item">
+<h3>2026 👑</h3>
+<p>The birthday of the most special girl ever.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Gallery -->
+
+<section>
+
+<div class="glass">
+
+<h2 class="title">
+Memories Gallery 📸
+</h2>
+
+<div class="gallery-grid">
+
+<div class="card">
+<img src="g1.jpg" alt="">
+<h3>Your Beautiful Smile 💖</h3>
+</div>
+
+<div class="card">
+<img src="g2.jpg" alt="">
+<h3>Pure Happiness ✨</h3>
+</div>
+
+<div class="card">
+<img src="g3.jpg" alt="">
+<h3>Most Precious 🌸</h3>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Memory Chats -->
+
+<section>
+
+<div class="glass">
+
+<h2 class="title">
+Our Cute Chats 💬
+</h2>
+
+<div class="chat-gallery">
+
+<div class="chat-card">
+<img src="chat1.png" alt="">
+</div>
+
+<div class="chat-card">
+<img src="chat2.png" alt="">
+</div>
+
+<div class="chat-card">
+<img src="chat3.png" alt="">
+</div>
+
+<div class="chat-card">
+<img src="chat4.png" alt="">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Letter -->
+
+<section>
+
+<div class="glass">
+
+<h2 class="title">
+Special Letter 💌
+</h2>
+
+<div class="typing" id="typing"></div>
+
+</div>
+
+</section>
+
+<!-- Gift -->
+
+<section>
+
+<div class="glass gift-section">
+
+<h2 class="title">
+Tap The Gift 🎁
+</h2>
+
+<div class="gift" id="gift">
+🎁
+</div>
+
+<div class="surprise" id="surprise">
+
+<h2>
+You Are Truly Special 💖
+</h2>
+
+<p>
+May happiness, success and beautiful memories always stay with you ✨
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Final -->
+
+<section>
+
+<div class="glass final">
+
+<h1>Happy Birthday ✨</h1>
+
+<p>
+No matter how many birthdays come...<br>
+your smile will always shine the brightest 💖
+</p>
+
+</div>
+
+</section>
+
+<footer class="bottom-bar">
+
+<h2>
+Made With ❤️ By Mohit Prajapat
+</h2>
+
+<h3>Happy birthday princess by mohit prajapat </h3>
+<p>
+Crafted specially for someone truly special ✨
+</p>
+
+</footer>
+<!-- Popup -->
+
+<div class="popup" id="popup">
+<img id="popupImg">
+</div>
+
+<!-- Music -->
+
+<div class="music-player">
+
+<button class="music-btn" id="musicBtn">
+▶
+</button>
+
+<div>
+<h4>happy birthday jaan meri🎵</h4>
+<small>Tap to Play</small>
+</div>
+
+</div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=beautiful-piano-115672.mp3">
+</audio>
+
+<script>
+
+/* Loader */
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+loader.style.opacity="0";
+
+setTimeout(()=>{
+loader.style.display="none";
+},1000);
+
+},3000);
+
+});
+
+/* Floating Hearts */
+
+const hearts=document.getElementById("hearts");
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.classList.add("heart");
+
+heart.innerHTML="💖";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=Math.random()*30+15+"px";
+
+heart.style.animationDuration=Math.random()*5+5+"s";
+
+hearts.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},10000);
+
+}
+
+setInterval(createHeart,250);
+
+/* Typing */
+
+const text=`Happy Birthday 💖
+
+You are one of the most beautiful souls in this world ✨
+
+May your life always stay filled with happiness, smiles, love and magical moments 🌸
+
+Keep shining forever Princess 👑`;
+
+const typing=document.getElementById("typing");
+
+let i=0;
+
+function type(){
+
+if(i<text.length){
+
+typing.innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(type,35);
+
+}
+
+}
+
+type();
+
+/* Popup Gallery */
+
+const popup = document.getElementById("popup");
+const popupImg = document.getElementById("popupImg");
+
+/* Select BOTH gallery + chat images */
+
+const images = document.querySelectorAll(
+".card img, .chat-card img"
+);
+
+/* Open Popup */
+
+images.forEach((img)=>{
+
+img.addEventListener("click",()=>{
+
+popup.style.display = "flex";
+
+popupImg.src = img.src;
+
+});
+
+});
+
+/* Close Popup */
+
+popup.addEventListener("click",()=>{
+
+popup.style.display = "none";
+
+});
+
+/* Music */
+
+const music=document.getElementById("music");
+const musicBtn=document.getElementById("musicBtn");
+
+let playing=false;
+
+musicBtn.addEventListener("click",()=>{
+
+if(!playing){
+
+music.play();
+musicBtn.innerHTML="❚❚";
+playing=true;
+
+}else{
+
+music.pause();
+musicBtn.innerHTML="▶";
+playing=false;
+
+}
+
+});
+
+/* Gift */
+
+const gift=document.getElementById("gift");
+const surprise=document.getElementById("surprise");
+
+gift.addEventListener("click",()=>{
+
+surprise.style.display="block";
+
+createFireworks();
+
+});
+
+/* Fireworks */
+
+function createFireworks(){
+
+for(let i=0;i<120;i++){
+
+const fire=document.createElement("div");
+
+fire.classList.add("firework");
+
+fire.style.left=window.innerWidth/2+"px";
+fire.style.top=window.innerHeight/2+"px";
+
+fire.style.background=`hsl(${Math.random()*360},100%,70%)`;
+
+document.body.appendChild(fire);
+
+const x=(Math.random()-0.5)*900;
+const y=(Math.random()-0.5)*900;
+
+fire.animate([
+{
+transform:"translate(0,0)",
+opacity:1
+},
+{
+transform:`translate(${x}px,${y}px)`,
+opacity:0
+}
+],{
+duration:2000,
+iterations:1
+});
+
+setTimeout(()=>{
+fire.remove();
+},2000);
+
+}
+
+}
+
+/* GSAP Animations */
+
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".glass").forEach((box)=>{
+
+gsap.from(box,{
+opacity:0,
+y:100,
+duration:1,
+scrollTrigger:{
+trigger:box,
+start:"top 80%"
+}
+});
+
+});
+
+</script>
+
+</body>
+</html>
